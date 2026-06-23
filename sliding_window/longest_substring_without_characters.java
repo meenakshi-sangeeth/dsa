@@ -22,3 +22,19 @@ Constraints:
 0 <= s.length <= 5 * 104
 s consists of English letters, digits, symbols and spaces.
 */
+
+class Solution {
+    public int lengthOfLongestSubstring(String s) {
+        int maxl=0;
+        int left=0;
+        int[] freq=new int[256];
+        for(int right=0;right<s.length();right++){
+            freq[s.charAt(right)]++;
+            while (freq[s.charAt(right)]>1){
+                freq[s.charAt(left++)]--;
+            }
+            maxl=Math.max(maxl,right-left+1);
+        }
+        return maxl;
+    }
+}
