@@ -27,7 +27,7 @@ n == t.length
 s and t consist of uppercase and lowercase English letters.
 
 */
-```bash
+
 class Solution {
     public String minWindow(String s, String t) {
         if(t.length()>s.length()) return "";
@@ -62,4 +62,4 @@ class Solution {
         else return s.substring(idx,idx+min);
     }
 }
-```
+
