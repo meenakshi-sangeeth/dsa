@@ -30,3 +30,50 @@ Constraints:
 -104 <= Node.val <= 104
 Node.random is null or is pointing to some node in the linked list.
 */
+
+/*
+// Definition for a Node.
+class Node {
+    int val;
+    Node next;
+    Node random;
+
+    public Node(int val) {
+        this.val = val;
+        this.next = null;
+        this.random = null;
+    }
+}
+*/
+
+class Solution {
+    public Node copyRandomList(Node head) {
+        if (head==null) return null;
+        Node curr=head;
+        while(curr!=null){
+            Node newNode=new Node(curr.val);
+            newNode.next=curr.next;
+            curr.next=newNode;
+            curr=curr.next.next;
+        }
+        curr=head;
+        while(curr!=null){
+            if(curr.random!=null){
+                curr.next.random=curr.random.next;
+            }
+            curr=curr.next.next;
+        }
+        Node newHead=head.next;
+        curr=head;
+        Node currNew=newHead;
+        while(currNew.next!=null){
+            curr.next=currNew.next;
+            curr=curr.next;
+            currNew.next=currNew.next.next;
+            currNew=currNew.next;
+        }
+        curr.next=null;
+        return newHead;
+
+    }
+}
