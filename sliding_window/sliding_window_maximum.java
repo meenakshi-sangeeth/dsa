@@ -19,5 +19,32 @@ Window position                Max
 Example 2:
 Input: nums = [1], k = 1
 Output: [1]
-
 */
+class Solution {
+    public int[] maxSlidingWindow(int[] nums, int k) {
+        ArrayList<Integer> res = new ArrayList<Integer>();
+        Deque<Integer> dq = new ArrayDeque<>();
+        for (int i = 0; i < k; ++i) {
+            while (!dq.isEmpty() && nums[i] >= nums[dq.peekLast()]) {
+                dq.pollLast();
+            }
+            dq.addLast(i);
+        }
+        for (int i = k; i < nums.length; ++i) {
+            res.add(nums[dq.peekFirst()]);
+            while (!dq.isEmpty() && dq.peekFirst() <= i - k) {
+                dq.pollFirst();
+            }
+            while (!dq.isEmpty() && nums[i] >= nums[dq.peekLast()]) {
+                dq.pollLast();
+            }
+            dq.addLast(i);
+        }
+        res.add(nums[dq.peekFirst()]);
+        int[] ans = new int[res.size()];
+        for (int i = 0; i < res.size(); i++) {
+            ans[i] = res.get(i);
+        }
+        return ans;
+    }
+}
