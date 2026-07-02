@@ -46,3 +46,25 @@ Then, the fleet at 4 (speed 2) and the car at position 5 (speed 1) become one fl
 
 
 */
+
+class Solution {
+    public int carFleet(int target, int[] position, int[] speed) {
+        int n = position.length;
+        Integer[] indices = new Integer[n];
+        for (int i = 0; i < n; i++) {
+            indices[i] = i;
+        }
+        Arrays.sort(indices, (i, j) -> position[j] - position[i]);
+      
+        int fleetCount = 0;
+        double previousArrivalTime = 0;
+        for (int index : indices) {
+            double currentArrivalTime = (double)(target - position[index]) / speed[index];
+            if (currentArrivalTime > previousArrivalTime) {
+                fleetCount++;
+                previousArrivalTime = currentArrivalTime;
+            }
+        }
+        return fleetCount;
+    }
+}
